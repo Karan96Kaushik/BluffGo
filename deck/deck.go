@@ -1,7 +1,7 @@
 package deck
 
 import (
-	_"fmt"
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -51,6 +51,31 @@ func (d *Deck) Shuffle () {
 	d.Cards = cards
 
 	return
+}
+
+func (d *Deck) Deal (numOfHands int, cardsPerHand int) [][]Card {
+	fmt.Println("Dealing cards...")
+	var hands [][]Card
+	
+	totalCards := numOfHands * cardsPerHand
+	if totalCards > len(d.Cards) {
+		totalCards = len(d.Cards)
+	}
+
+	// Initialize each hand
+	for i:=0; i<numOfHands; i++ {
+		var cards []Card
+		hands = append(hands, cards)
+	}
+
+	// Deal cards for each hand
+	for i := 0; i < (totalCards+1); i++ {
+		// fmt.Println(i)
+		hands[i % numOfHands] = append(hands[i % numOfHands], d.Cards[i])
+	}
+
+	d.Cards = d.Cards[totalCards - 1:]
+	return hands
 }
 
 func (c *Card) ToStr () string {

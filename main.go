@@ -1,16 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"./deck"
+	_"fmt"
+	_"./deck"
+	"./round"
 )
 
-func main () {
-	var d deck.Deck
-	d.Initialize()
-	d.Shuffle()
 
-	for _, card := range d.Cards {
-		fmt.Println(card.ToStr())
-	}
+
+func main () {
+
+	p1 := round.Player{	Name: "Bayonet"	, ID: "789"}
+	p2 := round.Player{	Name: "Baron" , ID: "345"}
+	p3 := round.Player{	Name: "Baroness" , ID: "123"}
+
+	players := []round.Player{p1,p2,p3}
+	round.StartRound(&players)
+	return
 }
