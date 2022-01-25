@@ -1,10 +1,10 @@
-package round 
+package game 
 
 import (
 	"bufio"
     "fmt"
     "os"
-	// "../deck"
+	"deck"
 	// "math"
 	s "strings"
 	"errors"
@@ -14,6 +14,38 @@ import (
 type Move struct {
 	MoveType string
 	CardIndices []int
+}
+
+func GetClaim () string {
+	var claim string
+
+	fmt.Println("Enter Your claim: ")
+
+    reader := bufio.NewReader(os.Stdin)
+    text, _ := reader.ReadString('\n')
+	text = s.Split(text, "\n")[0]
+	claim = s.Split(text, " ")[0]
+
+	e := ValidateClaim(claim)
+	if e != nil {
+		fmt.Println(e)
+		return GetClaim()
+	}
+
+	return claim
+}
+
+func ValidateClaim (claim string) error {
+	if len(claim) < 0 {
+		return errors.New("Empty claim!")
+	}
+
+	for _,f := range deck.Faces {
+		if f == claim {
+			return nil
+		}
+	}
+	return errors.New("Unrecognized face card!")
 }
 
 func GetMove () Move {

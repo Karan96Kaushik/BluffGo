@@ -16,19 +16,17 @@ type Deck struct {
 	Cards []Card
 }
 
+var Suits [4]string 	= [4]string{"♥", "⬩", "♠", "♣"}
+var Faces [13]string 	= [13]string{"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}
+var Values [13]int 		= [13]int{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
 func (d *Deck) Initialize () {
-
-	suits := [4]string{"♥", "⬩", "♠", "♣"}
-	faces   := [13]string{"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}
-	values  := [13]int{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
-
-	for _, suit := range suits {
-		for index, value := range values {
-			card := Card{ Suit: suit, Value: value, Face: faces[index] }
+	for _, suit := range Suits {
+		for index, value := range Values {
+			card := Card{ Suit: suit, Value: value, Face: Faces[index] }
 			d.Cards = append(d.Cards, card)
 		}
 	}
-
 	return
 }
 

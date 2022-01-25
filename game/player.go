@@ -1,8 +1,8 @@
-package round 
+package game 
 
 import (
 	"fmt"
-	"../deck"
+	"deck"
 	// "math"
 	// s "strings"
 	// "errors"
@@ -25,6 +25,12 @@ func (p *Player) RemoveFromHand (indices []int) {
 		newHand = append(newHand, p.Hand[index+1:]...)
 		p.Hand = newHand
 	}
+	return 
+}
+
+func (p *Player) AddToHand (cards []deck.Card) {
+	
+	p.Hand = append(p.Hand, cards...)
 	return 
 }
 
