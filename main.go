@@ -1,9 +1,10 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	// "deck"
 	"game"
+	tcp "tcpServer"
 )
 
 func main () {
@@ -13,6 +14,18 @@ func main () {
 	p3 := game.Player{	Name: "Baroness" , ID: "123"}
 
 	players := []*game.Player{&p1,&p2,&p3}
-	game.StartGame(&players)
+
+	go game.StartGame(&players)
+
+	message := make(chan tcp.Message) 
+	go tcp.Initialize(message)
+	for {
+	    msg := <-message
+	    if len(msg.Data) > 0 {
+		    fmt.Println(msg)
+		    // game.ReceivedMove()
+	    }
+	}
 	return
+
 }
